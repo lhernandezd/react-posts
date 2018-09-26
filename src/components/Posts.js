@@ -6,7 +6,7 @@ import PostsButtons from './PostsButtons';
 class Posts extends React.Component {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleOrder = this.handleOrder.bind(this);
 
     this.state = {
       posts: [
@@ -51,7 +51,7 @@ class Posts extends React.Component {
     };
   }
 
-  handleClick(e) {
+  handleOrder(e) {
     const selected = e.target.id;
     const button = document.getElementById(selected);
     const otherButton = document.getElementById(selected === 'ascending' ? 'descending' : 'ascending');
@@ -69,19 +69,51 @@ class Posts extends React.Component {
     })
   }
 
+  handleVotes = (id) => (e) => {
+    const selected = e.currentTarget.name;
+    let vote;
+
+    if(selected === 'like') {
+      vote = 1;
+    } else {
+      vote = -1;
+    }
+
+    const posts = this.state.posts.map(post => {
+      if (post.id === id) {
+        return {
+          ...post,
+          votes: (post.votes + vote) < 0 ? 0 : post.votes + vote //If the sum is negative assign 0
+        }
+      } else {
+        return post
+      }
+    })
+
+    this.setState({
+      posts: posts
+    })
+  }
+
   render() {
     return(
     <Container className='container'>
       <Grid container centered>
         <Grid.Column width={10}>
-          <PostsButtons handleClick={this.handleClick}/>
+          <PostsButtons handleOrder={this.handleOrder}/>
           <Item.Group divided style={{padding: 20}} className='section__posts'>
             {this.state.order ?
               this.state.posts.sort((a, b) => a.votes > b.votes ? 1 : -1).map(post =>
-              <PostCard data={post} key={post.id}/>
+              <PostCard 
+              data={post} 
+              key={post.id}
+              handleVotes={this.handleVotes(post.id)} />
             ) :
             this.state.posts.sort((a, b) => a.votes < b.votes ? 1 : -1).map(post =>
-              <PostCard data={post} key={post.id}/>
+              <PostCard 
+              data={post}
+              key={post.id}
+              handleVotes={this.handleVotes(post.id)} />
             )}
           </Item.Group>
         </Grid.Column>

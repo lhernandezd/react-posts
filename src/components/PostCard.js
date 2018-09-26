@@ -20,8 +20,8 @@ const PostCard = (props) => {
           <p>{props.data.description}</p>
         </Item.Description>
         <Item.Extra>
-          <Button circular icon='thumbs up outline' color='blue'></Button>
-          <Button circular icon='thumbs down outline'></Button>
+          <Button name='like' onClick={props.handleVotes} circular icon='thumbs up outline' color='blue'></Button>
+          <Button name='dislike' onClick={props.handleVotes} circular icon='thumbs down outline'></Button>
         </Item.Extra>
       </Item.Content>
     </Item>
