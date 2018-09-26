@@ -2,7 +2,7 @@
   "name": "react-posts",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://gitname.github.io/react-gh-pages",
+  "homepage": "https://lhernandezd.github.io/react-posts",
   "dependencies": {
     "ajv": "^6.5.4",
     "react": "^16.5.2",
