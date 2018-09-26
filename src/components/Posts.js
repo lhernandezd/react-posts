@@ -47,7 +47,7 @@ class Posts extends React.Component {
           post_image_url: 'http://blog.makeitreal.camp/assets/images/bg-images/aprende-desarrollo-web-bg.png',
         }
       ],
-      order: false //true => ascending , false => descending
+      order: false //order of the posts: true => ascending , false => descending
     };
   }
 
@@ -75,13 +75,15 @@ class Posts extends React.Component {
       <Grid container centered>
         <Grid.Column width={10}>
           <PostsButtons handleClick={this.handleClick}/>
-          {this.state.posts.map(post =>
-            <Grid.Row>
-              <Item.Group divided style={{padding: 20}} className='section__posts'>
-                <PostCard data={post}/>
-              </Item.Group>
-            </Grid.Row>
-          )}
+          <Item.Group divided style={{padding: 20}} className='section__posts'>
+            {this.state.order ?
+              this.state.posts.sort((a, b) => a.votes > b.votes ? 1 : -1).map(post =>
+              <PostCard data={post} key={post.id}/>
+            ) :
+            this.state.posts.sort((a, b) => a.votes < b.votes ? 1 : -1).map(post =>
+              <PostCard data={post} key={post.id}/>
+            )}
+          </Item.Group>
         </Grid.Column>
       </Grid>
     </Container>
