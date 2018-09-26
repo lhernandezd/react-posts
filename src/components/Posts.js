@@ -6,6 +6,7 @@ import PostsButtons from './PostsButtons';
 class Posts extends React.Component {
   constructor(props) {
     super(props);
+    this.handleClick = this.handleClick.bind(this);
 
     this.state = {
       posts: [
@@ -46,16 +47,34 @@ class Posts extends React.Component {
           post_image_url: 'http://blog.makeitreal.camp/assets/images/bg-images/aprende-desarrollo-web-bg.png',
         }
       ],
-      order: false
+      order: false //true => ascending , false => descending
     };
+  }
+
+  handleClick(e) {
+    const selected = e.target.id;
+    const button = document.getElementById(selected);
+    const otherButton = document.getElementById(selected === 'ascending' ? 'descending' : 'ascending');
+
+    button.classList.remove('basic');
+    button.classList.add('active');
+
+    otherButton.classList.remove('active');
+    otherButton.classList.add('basic');
+    
+    const newOrder = selected === 'ascending' ? true : false;
+
+    this.setState({
+      order: newOrder
+    })
   }
 
   render() {
     return(
-    <Container >
+    <Container className='container'>
       <Grid container centered>
         <Grid.Column width={10}>
-          <PostsButtons />
+          <PostsButtons handleClick={this.handleClick}/>
           {this.state.posts.map(post =>
             <Grid.Row>
               <Item.Group divided style={{padding: 20}} className='section__posts'>
