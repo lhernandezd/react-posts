@@ -3,16 +3,14 @@ import {Item, Button, Image} from 'semantic-ui-react';
 
 const PostCard = (props) => {
   return (
-    <Item>
+    <Item className='post__content'>
       <Item.Image  src={props.data.post_image_url}/>
       <Item.Content>
-        <Item.Header as='a'>
-          <h2>
-            <a target='blank' href={props.data.url}>{props.data.title}</a>
-          </h2>
+        <Item.Header as='a' href={props.data.url} target='blank'>
+          <h3>{props.data.title}</h3>
         </Item.Header>
         <Item.Meta>
-          <div style={{display: 'inlineBlock'}}>
+          <div className='item__meta' style={{display: 'inlineBlock'}}>
             Votes: {props.data.votes}
             <span style={{marginLeft: 10}}>Writer: </span>
             <Image src={props.data.writer_avatar_url} avatar />

@@ -1,6 +1,7 @@
 import React from 'react';
 import {Grid, Container, Item} from 'semantic-ui-react';
 import PostCard from './PostCard';
+import PostsButtons from './PostsButtons';
 
 class Posts extends React.Component {
   constructor(props) {
@@ -51,16 +52,17 @@ class Posts extends React.Component {
 
   render() {
     return(
-    <Container>
+    <Container >
       <Grid container centered>
         <Grid.Column width={10}>
-        {this.state.posts.map(post =>
-          <Grid.Row>
-            <Item.Group divided style={{padding: 20}}>
-              <PostCard data={post}/>
-            </Item.Group>
-          </Grid.Row>
-        )}
+          <PostsButtons />
+          {this.state.posts.map(post =>
+            <Grid.Row>
+              <Item.Group divided style={{padding: 20}} className='section__posts'>
+                <PostCard data={post}/>
+              </Item.Group>
+            </Grid.Row>
+          )}
         </Grid.Column>
       </Grid>
     </Container>
